@@ -1,12 +1,16 @@
-import React from 'react';
-import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, TouchableOpacity, Image, ScrollView, } from 'react-native';
 import {COLOURS} from '../database/items';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+
 
 const Details = ({route, navigation}) => {
   const {
+    id,
     name,
     price,
     image,
@@ -16,6 +20,34 @@ const Details = ({route, navigation}) => {
     ingredients,
     isTopOfTheWeek,
   } = route.params;
+
+  const [carts, setCarts] = useState([]);
+
+  const checkCart = async () => {
+    const value = await AsyncStorage.getItem("@cart");
+    if (value !== null) {
+      setCarts(JSON.parse(value))
+    }
+  }
+
+  const addToCart = async() => {
+
+    const obj = {
+      name:name,
+      price:price,
+      image:image
+    };
+
+
+    const createData = [...carts, obj];
+    console.log(createData);
+    await AsyncStorage.setItem("@cart", JSON.stringify(createData));
+    checkCart()
+    
+  };
+    
+
+
 
   return (
     <View
@@ -217,7 +249,7 @@ const Details = ({route, navigation}) => {
           alignItems: 'center',
         }}>
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
+          onPress={() => addToCart(id)}
           style={{
             width: '90%',
             height: 80,

@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
 const Login = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -88,7 +89,7 @@ const Login = ({ navigation }) => {
               borderRadius: 5,
             }}
             onPress={() => {
-              login();
+              navigation.navigate('home');
             }}
           >
             <Text style={{ color: "white" }}>Login</Text>

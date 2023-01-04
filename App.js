@@ -6,11 +6,15 @@ import Home from "./src/components/Home";
 import Detail from "./src/components/Details";
 import Login from "./src/components/Login";
 import Register from "./src/components/Register";
+import Map from "./src/components/Map";
+import Cart from "./src/components/Cart";
 
 const App = () => {
   const Stack = createNativeStackNavigator();
 
   return (
+    
+
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
@@ -21,8 +25,12 @@ const App = () => {
         <Stack.Screen name="register" component={Register} />
         <Stack.Screen name="home" component={Home} />
         <Stack.Screen name="details" component={Detail} />
+        <Stack.Screen name="cart" component={Cart} />
+        <Stack.Screen name="map" component={Map}  />
       </Stack.Navigator>
     </NavigationContainer>
+    
+    
   );
 };
 

@@ -9,21 +9,29 @@ import {
   TextInput,
   FlatList,
 } from 'react-native';
-import {Categories, COLOURS} from '../database/items';
-import Material from 'react-native-vector-icons/MaterialIcons';
+import {Categories, COLOURS, Items} from '../database/items';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Home = ({navigation}) => {
-  const [currentSelected, setCurrentSelected] = useState([0]);
+  const [currentSelected, setCurrentSelected] = useState([]);
+  const [menu, setMenu] = useState([]);
+  const [category, setCategory]=('')
+
+  
+  const handleCategories = (index)=> {
+    setCurrentSelected(index)
+    setMenu(Categories[index].items);
+  }
 
   const renderCategories = ({item, index}) => {
     return (
       <TouchableOpacity
         activeOpacity={0.9}
-        onPress={() => setCurrentSelected(index)}>
+        onPress={() => handleCategories(index)}>
         <View
           style={{
             width: 120,
@@ -90,6 +98,7 @@ const Home = ({navigation}) => {
         }}
         onPress={() =>
           navigation.push('details', {
+            id: data.id,
             name: data.name,
             price: data.price,
             image: data.image,
@@ -254,9 +263,9 @@ const Home = ({navigation}) => {
                 }}
               />
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Material
-                name="segment"
+            <TouchableOpacity onPress={()=> navigation.navigate("cart")}>
+              <MaterialCommunityIcons
+                name="cart"
                 style={{
                   fontSize: 28,
                   color: COLOURS.black,
@@ -336,7 +345,7 @@ const Home = ({navigation}) => {
             }}>
             Popular
           </Text>
-          {Categories[currentSelected].items.map(renderItems)}
+          {menu.map(renderItems)}
           <TouchableOpacity
             style={{
               margin: 30,
@@ -344,7 +353,7 @@ const Home = ({navigation}) => {
               alignItems: 'center',
               opacity: 0.5,
             }}
-            onPress={()=> console.log(currentSelected)}>
+            onPress={()=> navigation.navigate('map')}>
             <Text
               style={{
                 fontSize: 16,
