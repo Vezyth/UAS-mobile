@@ -23,6 +23,10 @@ const Details = ({route, navigation}) => {
 
   const [carts, setCarts] = useState([]);
 
+  useEffect (()=>{
+    checkCart()
+  },[])
+
   const checkCart = async () => {
     const value = await AsyncStorage.getItem("@cart");
     if (value !== null) {
@@ -43,6 +47,7 @@ const Details = ({route, navigation}) => {
     console.log(createData);
     await AsyncStorage.setItem("@cart", JSON.stringify(createData));
     checkCart()
+    
     
   };
     
@@ -65,7 +70,7 @@ const Details = ({route, navigation}) => {
           alignItems: 'center',
         }}>
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate("home")}
           style={{
             width: 40,
             height: 40,

@@ -89,7 +89,7 @@ const Login = ({ navigation }) => {
               borderRadius: 5,
             }}
             onPress={() => {
-              navigation.navigate('home');
+              login();
             }}
           >
             <Text style={{ color: "white" }}>Login</Text>

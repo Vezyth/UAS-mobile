@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -20,7 +20,11 @@ const Home = ({navigation}) => {
   const [currentSelected, setCurrentSelected] = useState([]);
   const [menu, setMenu] = useState([]);
   const [category, setCategory]=('')
+  const [cart, setCart] = ([])
 
+  
+
+  
   
   const handleCategories = (index)=> {
     setCurrentSelected(index)
@@ -162,7 +166,7 @@ const Home = ({navigation}) => {
                 color: COLOURS.black,
                 opacity: 0.5,
               }}>
-              {data.weight}
+              ₹. {data.price}
             </Text>
           </View>
           <View style={{width: 150, height: 150, marginRight: -45}}>
